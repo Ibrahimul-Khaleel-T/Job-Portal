@@ -1,0 +1,209 @@
+{% extends 'index_page.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    .error{
+        color: red;
+        font-size: 12px;
+        font-weight: 500;
+        display: block;
+        text-align: left;
+        margin-left: 10px;
+        margin-top: -5px;
+        margin-bottom: 5px;
+        max-width: 350px;
+        word-wrap: break-word;
+    }
+    .logo{
+        display: flex;
+        gap: 3px;
+        margin-top: 10px;
+        color: royalblue;
+    }
+    .left{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .main{
+        display: flex;
+        justify-content: center;
+        margin-top: 35px;
+        gap: 10px;
+    }
+    form{
+        background:  whitesmoke; 
+        border-radius: 9px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 30px;
+        margin-top: 20px;
+    }
+    .head{
+        margin-bottom: 20px;
+        margin-top: -20px;
+        border-bottom: solid hsla(0, 4%, 89%, 0.762);
+        color: black;
+        padding-bottom: 15px;
+    }
+    input{
+        width: 350px;
+        padding: 7px;
+        margin: 7px;
+    }
+    label {
+        display: block;
+        font-weight: 600;
+        margin-top: 7px;
+        text-align: left;
+        font-size: 14px;
+        margin-left: 7px;
+    }
+    .resume input[type="file"] {
+        width: 350px;
+        padding: 7px;
+        margin-left: 4px;
+        margin-top: -2px;
+    }
+
+    button{
+        width: 100px;
+        padding: 7px;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: rgb(17, 160, 17);
+        border: none;
+        color: white;
+        font-size: larger;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:hover{
+        background-color: rgb(33, 121, 33);
+    }
+</style>
+<body>
+<div class="container">
+    <div class="left">
+        <div class="logo">
+            <div class="logo_name">
+                <h5>Job Portal</h5>
+            </div>
+            <div class="logo_img">
+                <img src="{% static 'images/maxresdefault1.jpg' %}" width="38px" height="30px" alt="logo">
+            </div>
+        </div>
+        <div class="main">
+            <div class="main1">
+                <form method="post" action="" enctype="multipart/form-data" onsubmit="return validateform()">
+                    {% csrf_token %}
+                    <div class="head">
+                        <h4>Create a new account</h4>
+                    </div>
+                <div class="fn">
+                    <input type="text" placeholder="Enter the First name" name="firstname" id="firstname">
+                    <span class="error" id="firstnameerror"></span>
+                </div>
+                <div class="ln">
+                    <input type="text" placeholder="Enter the Last name" name="lastname" id="lastname">
+                    <span class="error" id="lastnameerror"></span>
+                </div>
+                <div class="username">
+                    <input type="text" placeholder="Enter the Username" name="username" id="username">
+                    <span class="error" id="usernameerror"></span>
+                </div>
+                <div class="email">
+                    <input type="email" placeholder="Enter the Email ID" name="email" id="email">
+                    <span class="error" id="emailerror"></span>
+                </div>
+                <div class="number">
+                    <input type="tel" placeholder="Enter the Mobile number" name="number" id="number">
+                    <span class="error" id="numbererror"></span>
+                </div>
+                <div class="password">
+                    <input type="password" placeholder="Enter the Password" name="password" id="password">
+                    <span class="error" id="passworderror"></span>
+                </div>
+                <div class="resume">
+                    <label for="">Upload Resume</label>
+                    <input type="file" name="resume" id="resume">
+                    <span class="error" id="resumeerror"></span>
+                </div>
+                <div class="signup">
+                    <button type="submit">Sign up</button>
+                </div>
+                <div class="signin">
+                    <a href="{% url 'seeker_signin' %}">Already have an account?</a>
+                </div>
+                </form>
+            </div>
+            <div class="main2">
+                <img src="{% static 'images/jobseeker_white.png' %}" height="420px" width="490px" alt="jobseeker">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function validateform(){
+        let isvalid=true;
+        document.querySelectorAll(".error").forEach(e=>e.innerText="");
+
+
+        let firstname=document.getElementById("firstname").value.trim();
+        let lastname=document.getElementById("lastname").value.trim();
+        let username=document.getElementById("username").value.trim();
+        let email=document.getElementById("email").value.trim();
+        let number=document.getElementById("number").value.trim();
+        let password=document.getElementById("password").value.trim();
+        let resume=document.getElementById("resume").value.trim();
+        if(firstname===""){
+            document.getElementById("firstnameerror").innerText="First name is required";
+            isvalid=false;
+        }
+        if(lastname===""){
+            document.getElementById("lastnameerror").innerText="Last name is required";
+            isvalid=false;
+        }
+        if(username===""){
+            document.getElementById("usernameerror").innerText="Username is required";
+            isvalid=false;
+        }
+        if(email===""){
+            document.getElementById("emailerror").innerText="Email ID is required";
+            isvalid=false;
+        }
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailerror").innerText = "Enter a valid email address";
+                isvalid = false;
+        }
+
+        if(number===""){
+            document.getElementById("numbererror").innerText="Phone number is required";
+            isvalid=false;
+        }
+        let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+            if (!passwordPattern.test(password)) {
+                document.getElementById("passworderror").innerText = 
+                    "Password must be at least 8 characters, \ninclude an uppercase letter, a lowercase letter, \na number, and a special character!";
+                isvalid = false;
+        }
+        if(resume===""){
+            document.getElementById("resumeerror").innerText="Resume is required";
+            isvalid=false;
+        }
+        let allowedExtensions = /(\.pdf|\.docx?)$/i;
+            if (!allowedExtensions.exec(resume)) {
+                document.getElementById("resumeerror").innerText = "Upload PDF or DOCX only";
+                isvalid = false;
+        }
+
+        return isvalid;
+    }
+</script>
+</body>
+
+{% endblock %}

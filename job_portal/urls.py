@@ -22,7 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='menu'),
     path('seeker_signup',views.jobseeker_signup,name='seeker_signup'),
-    path('seeker_signin',views.jobseeker_signin,name='seeker_signin'),
     path('employee_signup',views.employee_signup,name='employee_signup'),
-    path('employee_signin',views.employee_signin,name='employee_signin'),
+    path('signin',views.signin,name='signin'),
+    path('reset_password',views.password_reset_request,name='reset_password'),
+    path('verify_otp',views.verify_otp,name='verify_otp'),
+    path('set_new_password',views.set_new_password,name='set_new_password'),
 ]

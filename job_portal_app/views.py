@@ -12,6 +12,12 @@ from django.contrib import messages
 def index(request):
     return render(request,'index_page.html')
 
+def seeker_home(request):
+    return render(request,'seeker_feed.html')
+
+def employee_home(request):
+    return render(request,'employee_feed.html')
+
 def jobseeker_signup(request):
     if request.method=='POST':
         firstname=request.POST['firstname']
@@ -25,7 +31,9 @@ def jobseeker_signup(request):
         data.save()
         details=JobSeeker.objects.create(user_id=data,firstname=firstname,lastname=lastname,number=number,resume=resume)
         details.save()
-        return HttpResponse("success")
+        user=authenticate(username=username,password=password)
+        login(request,user)
+        return redirect(seeker_home)
     else:
         return render(request,'seeker_signup.html')
 
@@ -46,9 +54,6 @@ def employee_signup(request):
     else:
         return render(request,'employee_signup.html')
     
-def seeker_home(request):
-    return render(request,'seeker_feed.html')
-
 
 def signin(request):
     if request.method=='POST':
@@ -58,7 +63,7 @@ def signin(request):
         if user is not None:
             login(request,user)
             if user.user_type=='employee':
-                return HttpResponse("Heyy Emoloyee")
+                return redirect(employee_home)
             elif user.user_type=='jobseeker':
                 return redirect(seeker_home)
             else:

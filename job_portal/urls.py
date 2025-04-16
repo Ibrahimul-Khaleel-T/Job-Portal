@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index,name='menu'),
+    path('',views.index,name='menu'),   
     path('seeker_signup',views.jobseeker_signup,name='seeker_signup'),
     path('employee_signup',views.employee_signup,name='employee_signup'),
     path('signin',views.signin,name='signin'),
@@ -33,6 +33,7 @@ urlpatterns = [
     path('seeker_profile',views.seeker_profile,name='seeker_profile'),
     path('logout',views.Logout,name='logout'),
     path('seeker_edit',views.seeker_edit,name='seeker_edit'),
+    path('employee_home',views.employee_home,name='employee_home'),
 ]
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

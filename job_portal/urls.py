@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from job_portal_app import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +29,10 @@ urlpatterns = [
     path('reset_password',views.password_reset_request,name='reset_password'),
     path('verify_otp',views.verify_otp,name='verify_otp'),
     path('set_new_password',views.set_new_password,name='set_new_password'),
+    path('seeker_home',views.seeker_home,name='seeker_home'),
+    path('seeker_profile',views.seeker_profile,name='seeker_profile'),
+    path('logout',views.Logout,name='logout'),
+    path('seeker_edit',views.seeker_edit,name='seeker_edit'),
 ]
+if settings.DEBUG:
+    urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

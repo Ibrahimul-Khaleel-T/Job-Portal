@@ -45,6 +45,10 @@ def employee_signup(request):
         return HttpResponse("success")
     else:
         return render(request,'employee_signup.html')
+    
+def seeker_home(request):
+    return render(request,'seeker_feed.html')
+
 
 def signin(request):
     if request.method=='POST':
@@ -56,13 +60,18 @@ def signin(request):
             if user.user_type=='employee':
                 return HttpResponse("Heyy Emoloyee")
             elif user.user_type=='jobseeker':
-                return render(request,'seeker_feed.html')
+                return redirect(seeker_home)
             else:
                 return HttpResponse("Error")
         else:
             return render(request,'signin.html',{'error':'Invalid username or password'})
     else:
         return render(request,'signin.html')
+    
+def Logout(request):
+    logout(request)
+    return redirect(signin)
+
     
 def send_otp(email):
     otp = random.randint(100000,999999)
@@ -128,4 +137,43 @@ def set_new_password(request):
                 messages.error(request,'Password doesnot match')
         return render(request,'set_new_password.html',{'email':email})               
     return render(request,'set_new_password.html',{'email':email})
+
+
+def seeker_profile(request):
+    try:
+        jobseeker = JobSeeker.objects.get(user_id=request.user)
+        custom_user = request.user
+
+        return render(request, 'seeker_profile.html', {
+            'data': jobseeker,
+            'details': custom_user
+        })
+    except JobSeeker.DoesNotExist:
+        return redirect('seeker_home')
+
+    except:
+        return redirect(seeker_home)
+    
+def seeker_edit(request):
+    jobseeker=JobSeeker.objects.get(user_id=request.user)
+    custom_user=request.user
+    if request.method=='POST':
+        jobseeker.firstname=request.POST['firstname']
+        jobseeker.lastname=request.POST['lastname']
+        custom_user.username=request.POST['username']
+        custom_user.email=request.POST['email']
+        jobseeker.number=request.POST['number']
+        if 'resume' in request.FILES:
+            jobseeker.resume = request.FILES['resume']
+
+        jobseeker.save()
+        custom_user.save()
+
+        return render(request, 'seeker_profile.html', {'data': jobseeker, 'details': custom_user})
+    
+    else:
+        return render(request,'seeker_edit.html',{'data':jobseeker,'details':custom_user})
+
+
+
 

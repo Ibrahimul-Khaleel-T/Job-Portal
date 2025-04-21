@@ -34,6 +34,12 @@ urlpatterns = [
     path('logout',views.Logout,name='logout'),
     path('seeker_edit',views.seeker_edit,name='seeker_edit'),
     path('employee_home',views.employee_home,name='employee_home'),
+    path('employee_profile',views.employee_profile,name='employee_profile'),
+    path('employee_edit',views.employee_edit,name='employee_edit'),
+    path('job_post',views.job_post,name='job_post'),
+    path('job_details', views.job_details, name='job_details'),
+
+
 ]
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

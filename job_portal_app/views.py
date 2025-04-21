@@ -7,13 +7,16 @@ from .models import Employee
 from django.core.mail import send_mail
 import random
 from django.contrib import messages
+from .models import Job
+from django.utils import timezone
 
 # Create your views here
 def index(request):
     return render(request,'index_page.html')
 
 def seeker_home(request):
-    return render(request,'seeker_feed.html')
+    jobs=Job.objects.all()
+    return render(request,'seeker_feed.html',{'jobs':jobs})
 
 def employee_home(request):
     return render(request,'employee_feed.html')
@@ -50,7 +53,9 @@ def employee_signup(request):
         data.save()
         details=Employee.objects.create(user_id=data,companyname=companyname,companyindustry=companyindustry,discription=discription,companylogo=companylogo)
         details.save()
-        return HttpResponse("success")
+        user=authenticate(username=username,password=password)
+        login(request,user)
+        return redirect(employee_home)
     else:
         return render(request,'employee_signup.html')
     
@@ -159,6 +164,22 @@ def seeker_profile(request):
     except:
         return redirect(seeker_home)
     
+def employee_profile(request):
+    try:
+        employee=Employee.objects.get(user_id=request.user)
+        custom_user=request.user
+
+        return render(request,'employee_profile.html',{
+            'data':employee,
+            'details':custom_user
+        })
+    except Employee.DoesNotExist:
+        return redirect('employee_home')
+    
+    except:
+        return redirect(employee_home)
+
+   
 def seeker_edit(request):
     jobseeker=JobSeeker.objects.get(user_id=request.user)
     custom_user=request.user
@@ -178,6 +199,46 @@ def seeker_edit(request):
     
     else:
         return render(request,'seeker_edit.html',{'data':jobseeker,'details':custom_user})
+    
+def employee_edit(request):
+    employee=Employee.objects.get(user_id=request.user)
+    custom_user=request.user
+    if request.method=='POST':
+        if 'companylogo' in request.FILES:
+            employee.companylogo=request.FILES['companylogo']
+        employee.companyname=request.POST['companyname']
+        custom_user.email=request.POST['email']
+        employee.companyindustry=request.POST['companyindustry']
+        employee.discription=request.POST['discription']
+        custom_user.username=request.POST['username']
+
+        employee.save()
+        custom_user.save()
+
+        return render(request, 'employee_profile.html',{'data':employee,'details':custom_user})
+    
+    else:
+        return render(request,'employee_edit.html',{'data':employee,'details':custom_user})
+    
+def job_post(request):
+    if request.method=='POST':
+        job_title=request.POST['job_title']
+        discription=request.POST['discription']
+        requirements=request.POST['requirements']
+        salary=request.POST['salary']
+        location=request.POST['location']
+        deadline=request.POST['deadline']
+        employee=Employee.objects.get(user_id=request.user)
+        data=Job.objects.create(posted_by=employee,job_title=job_title,discription=discription,requirements=requirements,salary_range=salary,location=location,application_deadline=deadline)
+        data.save()
+        return HttpResponse("job posted successfully...")
+    else:
+        return render(request,'job_post.html')
+    
+def job_details(request):
+    return render(request, 'job_details.html')
+
+
 
 
 

@@ -18,7 +18,7 @@
     .nav-item{
       padding: 0px 14px;
     }
-    li a:hover:not(.active) {
+    li a:hover:not(.active){
         background-color: #111;
     }
     .logo{
@@ -28,48 +28,117 @@
         margin-top: 10px;
         color: royalblue;
     }
+    .container2{
+        margin: auto;
+        background: white;
+        padding: 3px;
+        align-items: flex-start;
+    }
+    .details li{
+      border-bottom: solid hsla(0, 4%, 89%, 0.762);
+    }
+    h2 {
+       margin-bottom: 20px;
+       color: #333;
+    }
+    .job-card img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+    }
+    .list{
+      display: flex;
+      gap: 6px;
+    }
+    .details h3 {
+        margin: 0;
+        color: #0073e6;
+    }
+    .details li{
+      padding: 17px;
+    }
+    .details p {
+        margin: 4px 0;
+    }
+    .job_list a{
+      text-decoration: none;
+    }
+    h4{
+      padding: 7px;
+      margin-bottom: 20px;
+    }
 </style>
+
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'seeker_home' %}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'seeker_profile' %}">Profile</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Notifications</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">ATS</a>
-              </li>
-              <li class="nav-item">
-                <form method="get" action="" class="d-flex">
-                  <input class="form-control me-2" type="text" placeholder="Search jobs here">
-                  <button class="btn btn-primary" type="submit">Search</button>
-                </form>
-              </li>       
-            </ul>
-            <a class="nav-link" id="logout" href="{% url 'logout' %}">Logout</a>
-          </div>
-        </div>
-      </nav>
-      
-      <div class="container-fluid mt-3">
-        <div class="logo">
-          <div class="logo_name">
-              <h5>Job Portal</h5>
-          </div>
-          <div class="logo_img">
-              <img src="{% static 'images/maxresdefault1.jpg' %}" width="38px" height="30px" alt="logo">
-          </div>
-        </div>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'seeker_home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'seeker_profile' %}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">Notifications</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">ATS</a>
+          </li>
+          <li class="nav-item">
+            <form method="get" action="" class="d-flex">
+              <input class="form-control me-2" type="text" placeholder="Search jobs here">
+              <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+          </li>
+        </ul>
+        <a class="nav-link" id="logout" href="{% url 'logout' %}">Logout</a>
       </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid mt-3">
+    <div class="logo">
+      <div class="logo_name">
+        <h5><strong>Job Portal</strong></h5>
+      </div>
+      <div class="logo_img">
+        <img src="{% static 'images/maxresdefault1.jpg' %}" width="38px" height="30px" alt="logo">
+      </div>
+    </div>
+  </div>
+
+  <h4><strong>Top job picks for you</strong></h4>
+  <div class="container2">
+    <div class="details">
+      {% if jobs %}
+      <ul>
+          {% for job in jobs %}
+              <li>
+                <div class="list">
+                  <div class="company_logo">
+                    <img src="{{job.posted_by.companylogo.url}}" width="60px" height="60px" alt="company logo">
+                  </div>
+                  <div class="job_list">
+                    <h5><strong>{{job.job_title}}</strong></h5>
+                    <p>{{job.posted_by.companyname}},{{ job.location }}</p>
+                    <a href="{% url 'job_details' %}">More details</a>
+                  </div>
+                </div>
+              </li>
+          {% endfor %}
+      </ul>
+  {% else %}
+      <p>No jobs available right now.</p>
+  {% endif %}
+    </div>
+  </div>
+
+
 </body>
+
 </html>

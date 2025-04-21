@@ -19,3 +19,12 @@ class Employee(models.Model):
     companyindustry=models.CharField(max_length=25)
     discription=models.CharField(max_length=250)
     companylogo=models.FileField(null=True,blank=True)
+
+class Job(models.Model):
+    job_title=models.CharField(max_length=250)
+    discription=models.TextField()
+    requirements=models.TextField()
+    salary_range=models.CharField(max_length=150)
+    location=models.CharField(max_length=250)
+    application_deadline=models.DateField()
+    posted_by=models.ForeignKey(Employee,on_delete=models.CASCADE)

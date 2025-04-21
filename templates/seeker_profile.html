@@ -14,7 +14,7 @@
         padding: 0;
         overflow: hidden;
         background-color: #333;
-        position: -webkit-sticky; /* Safari */
+        position: -webkit-sticky; 
         position: sticky;
         top: 0;
       }
@@ -57,6 +57,9 @@
     a{
       text-decoration: none;
     }
+    b{
+      color: rgb(41, 65, 126);
+    }
 </style>
 </head>
 
@@ -68,22 +71,22 @@
   <div class="container">
     <div class="logo">
       <div class="logo_name">
-        <h5>Job Portal</h5>
+        <h5><strong>Job Portal</strong></h5>
       </div>
       <div class="logo_img">
         <img src="{% static 'images/maxresdefault1.jpg' %}" width="38px" height="30px" alt="logo">
       </div>
     </div>
     <div class="main">
-      <h6>Firstname:{{data.firstname}}</h6>
-      <h6>Lastname:{{data.lastname}}</h6>
-      <h6>Username:{{details.username}}</h6>
-      <h6>Email ID:{{details.email}}</h6>
-      <h6>Mobile Number:{{data.number}}</h6>
+      <h6><b>Username</b>:{{details.username}}</h6>
+      <h6><b>Firstname</b>.:{{data.firstname}}</h6>
+      <h6><b>Lastname</b>:{{data.lastname}}</h6>
+      <h6><b>Email ID</b>:{{details.email}}</h6>
+      <h6><b>Mobile Number</b>:{{data.number}}</h6>
       {% if data.resume %}
       <h6><a href="{{data.resume.url}}" target="_blank">View Resume</a></h6>
       {% else %}
-      <h6>Resume: Not uploaded</h6>
+      <h6><b>Resume</b>: Not uploaded</h6>
       {% endif %}
 
     </div>

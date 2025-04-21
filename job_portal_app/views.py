@@ -235,8 +235,9 @@ def job_post(request):
     else:
         return render(request,'job_post.html')
     
-def job_details(request):
-    return render(request, 'job_details.html')
+def job_details(request,id):
+    job=Job.objects.get(id=id)
+    return render(request, 'job_details.html',{'job':job})
 
 
 

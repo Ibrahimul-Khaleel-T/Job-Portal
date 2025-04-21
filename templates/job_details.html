@@ -54,6 +54,39 @@
                 <div class="logo_img">
                   <img src="{% static 'images/maxresdefault1.jpg' %}" width="38px" height="30px" alt="logo">
                 </div>
+            </div>
+            <div class="jod_info">
+              <div class="company_logo">
+                <img src="{{job.posted_by.companylogo.url}}" width="60px" height="60px" alt="company_logo">
               </div>
+              <div class="job_details">
+                <h6><strong>{{job.posted_by.companyname}}</strong></h6>
+                <h5><strong>{{job.job_title}}</strong></h5>
+                <p>{{job.discription}}</p>
+              </div>
+              <div class="details1">
+                <h6><strong>Requirements</strong></h6>
+                <p>{{job.requirements}}</p>
+              </div>
+              <div class="details2">
+                <h6><strong>Salary Range</strong></h6>
+                <p>{{job.salary_range}}</p>
+              </div>
+              <div class="details3">
+                <h6><strong>Location</strong></h6>
+                <p>{{job.location}}</p>
+              </div>
+              <div class="details4">
+                <h6><strong>Deadline</strong></h6>
+                <p>{{job.application_deadline}}</p>
+              </div>
+              <div class="job_details9">
+                <h6><strong>About company</strong></h6>
+                <p>{{job.posted_by.discription}}</p>
+              </div>
+            </div>
+            <div class="btn">
+              <a href=""><button type="submit">Apply</button></a>
+            </div>
 </body>
 </html>

@@ -169,13 +169,9 @@ def employee_profile(request):
         employee=Employee.objects.get(user_id=request.user)
         custom_user=request.user
 
-        return render(request,'employee_profile.html',{
-            'data':employee,
-            'details':custom_user
-        })
+        return render(request,'employee_profile.html',{'data':employee,'details':custom_user})
     except Employee.DoesNotExist:
-        return redirect('employee_home')
-    
+        return redirect('employee_home')   
     except:
         return redirect(employee_home)
 
@@ -234,6 +230,15 @@ def job_post(request):
         return HttpResponse("job posted successfully...")
     else:
         return render(request,'job_post.html')
+    
+def select_edit_job_post(request):
+    if request.method=='POST':
+        return render(request,'edit_job_post.html')
+    else:
+        employee=Employee.objects.get(user_id=request.user)
+        jobs=Job.objects.filter(posted_by=employee)
+        return render(request,'select_edit_job_post.html',{'jobs':jobs})
+    
     
 def job_details(request,id):
     job=Job.objects.get(id=id)

@@ -117,24 +117,24 @@
     <div class="details">
       {% if jobs %}
       <ul>
-          {% for job in jobs %}
-              <li id="job-{{job.id}}">
-                <div class="list">
-                  <div class="company_logo">
-                    <img src="{{job.posted_by.companylogo.url}}" width="60px" height="60px" alt="company logo">
-                  </div>
-                  <div class="job_list">
-                    <h5><strong>{{job.job_title}}</strong></h5>
-                    <p>{{job.posted_by.companyname}},{{ job.location }}</p>
-                    <a href="{% url 'job_details' job.id %}">More details</a>
-                  </div>
-                </div>
-              </li>
-          {% endfor %}
+        {% for job in jobs %}
+        <li id="job-{{job.id}}">
+          <div class="list">
+            <div class="company_logo">
+              <img src="{{job.posted_by.companylogo.url}}" width="60px" height="60px" alt="company logo">
+            </div>
+            <div class="job_list">
+              <h5><strong>{{job.job_title}}</strong></h5>
+              <p>{{job.posted_by.companyname}},{{ job.location }}</p>
+              <a href="{% url 'job_details' job.id %}">More details</a>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
       </ul>
-  {% else %}
+      {% else %}
       <p>No jobs available right now.</p>
-  {% endif %}
+      {% endif %}
     </div>
   </div>
 

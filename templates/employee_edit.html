@@ -84,6 +84,7 @@
     button:hover{
         background-color: rgb(27, 27, 169);
     }
+    
     .error{
         color: red;
         font-size: 12px;
@@ -124,7 +125,7 @@
         <form method="post" action="" enctype="multipart/form-data" onsubmit="return validateform()">
           {% csrf_token %}
           <div>
-            <input type="file" name="companylogo"><br>
+            <input type="file" name="companylogo" id="companylogo"><br>
             {% if data.companylogo %}
             <a href="{{data.companylogo.url}}" target="_blank">View Company Logo</a>
             {% endif %}
@@ -132,12 +133,12 @@
           </div>
           <div>
             <label for="">Company Name</label><br>
-            <input type="text" placeholder="Enter the Company Name" name="companyname" value="{{data.companyname}}"><br>
+            <input type="text" placeholder="Enter the Company Name" name="companyname" id="companyname" value="{{data.companyname}}"><br>
             <span class="error" id="companynameerror"></span>
           </div>
           <div>
             <label for="">Email ID</label><br>
-            <input type="email" placeholder="Enter the Email ID" name="email" value="{{details.email}}"><br>
+            <input type="email" placeholder="Enter the Email ID" name="email" id="email" value="{{details.email}}"><br>
             <span class="error" id="emailerror"></span>
           </div>
           <div>
@@ -160,12 +161,12 @@
           </div>
           <div>
             <label for="">Discription</label><br>
-            <input type="text" placeholder="Enter the Discription about your company" name="discription" value="{{data.discription}}"><br>
+            <input type="text" placeholder="Enter the Discription about your company" name="discription" id="discription" value="{{data.discription}}"><br>
             <span class="error" id="discriptionerror"></span>
           </div>
           <div>
             <label for="">Username</label><br>
-            <input type="text" placeholder="Enter the Username" name="username" value="{{details.username}}"><br>
+            <input type="text" placeholder="Enter the Username" name="username" id="username" value="{{details.username}}"><br>
             <span class="error" id="usernameerror"></span>
           </div>
           <button type="submit">Save</button>
@@ -177,7 +178,6 @@
     document.querySelectorAll(".error").forEach(e => e.innerText = "");
 
 
-    let companylogo = document.getElementById("companylogo").value.trim();
     let companyname = document.getElementById("companyname").value.trim();
     let email = document.getElementById("email").value.trim();
     let companyindustry = document.getElementById("companyindustry").value.trim();

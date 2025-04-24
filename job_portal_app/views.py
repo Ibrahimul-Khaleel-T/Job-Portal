@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from .models import JobSeeker
 from django.contrib.auth import authenticate,login,logout
@@ -17,6 +17,10 @@ def index(request):
 def seeker_home(request):
     jobs=Job.objects.all()
     return render(request,'seeker_feed.html',{'jobs':jobs})
+
+def job_ajax_details(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    return render(request, 'job_detail_snippet.html', {'job': job})
 
 def employee_home(request):
     return render(request,'employee_feed.html')
@@ -72,7 +76,7 @@ def signin(request):
             elif user.user_type=='jobseeker':
                 return redirect(seeker_home)
             else:
-                return HttpResponse("Error")
+                return HttpResponse("Unknown user")
         else:
             return render(request,'signin.html',{'error':'Invalid username or password'})
     else:
@@ -227,22 +231,40 @@ def job_post(request):
         employee=Employee.objects.get(user_id=request.user)
         data=Job.objects.create(posted_by=employee,job_title=job_title,discription=discription,requirements=requirements,salary_range=salary,location=location,application_deadline=deadline)
         data.save()
-        return HttpResponse("job posted successfully...")
+        return render(request,'job_posted_success.html')
     else:
         return render(request,'job_post.html')
-    
-def select_edit_job_post(request):
-    if request.method=='POST':
-        return render(request,'edit_job_post.html')
-    else:
-        employee=Employee.objects.get(user_id=request.user)
-        jobs=Job.objects.filter(posted_by=employee)
-        return render(request,'select_edit_job_post.html',{'jobs':jobs})
-    
     
 def job_details(request,id):
     job=Job.objects.get(id=id)
     return render(request, 'job_details.html',{'job':job})
+
+def select_edit_job_post(request):
+    employee=Employee.objects.get(user_id=request.user)
+    jobs=Job.objects.filter(posted_by=employee)
+    return render(request,'select_edit_job_post.html',{'jobs':jobs})
+
+def edit_job_post(request,id):
+    job=Job.objects.get(id=id)
+    if request.method=='POST':
+        job.job_title=request.POST['job_title']
+        job.discription=request.POST['discription']
+        job.requirements=request.POST['requirements']
+        job.salary_range=request.POST['salary']
+        job.location=request.POST['location']
+        job.application_deadline=request.POST['deadline']
+        job.save()
+        return redirect(select_edit_job_post)
+    else:
+        return render(request,'edit_job_post.html',{'job':job})
+  
+
+    
+
+
+    
+    
+
 
 
 

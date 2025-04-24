@@ -30,6 +30,8 @@ urlpatterns = [
     path('verify_otp',views.verify_otp,name='verify_otp'),
     path('set_new_password',views.set_new_password,name='set_new_password'),
     path('seeker_home',views.seeker_home,name='seeker_home'),
+    path('job_ajax_details/<int:job_id>/', views.job_ajax_details, name='job_ajax_details'),
+    path('job_ajax_details/<int:job_id>/', views.job_ajax_details, name='job_ajax_details'),
     path('seeker_profile',views.seeker_profile,name='seeker_profile'),
     path('logout',views.Logout,name='logout'),
     path('seeker_edit',views.seeker_edit,name='seeker_edit'),
@@ -38,6 +40,7 @@ urlpatterns = [
     path('employee_edit',views.employee_edit,name='employee_edit'),
     path('job_post',views.job_post,name='job_post'),
     path('select_edit_job_post',views.select_edit_job_post,name='select_edit_job_post'),
+    path('edit_job_post/<int:id>',views.edit_job_post,name='edit_job_post'),
     path('job_details/<int:id>', views.job_details, name='job_details'),
 
 

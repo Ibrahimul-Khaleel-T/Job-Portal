@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+    button{
+        width: 70px;
+        padding: 7px;
+        border-radius: 5px;
+        margin-top: -20px;
+        margin-bottom: 10px;
+        background-color: rgb(42, 42, 255);
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:hover{
+        background-color: rgb(27, 27, 169);
+    }
+    .txt{
+        margin-top: -60px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="img">
+            <img src="{% static 'images/job_posted.jpg' %}" height="420px" width="500px" alt="">
+        </div>
+        <div class="txt">
+            <h2><strong>Job Posted Successfully.</strong></h2>
+        </div>
+        <div>
+            <a href="{% url 'employee_home' %}"><button type="submit">OK</button></a>
+        </div>
+    </div>
+</body>
+</html>

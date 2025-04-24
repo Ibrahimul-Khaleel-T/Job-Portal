@@ -110,7 +110,7 @@
             margin-top: 10px;
         }
         .img{
-            margin-top: 22px;
+            margin-top: 60px;
         }
     </style>
 </head>
@@ -131,37 +131,36 @@
         </div>
         <div class="main">
             <div class="form">
-                <form method="post" action="" enctype="multipart/form-data" onsubmit="return validateform()">
+                <form method="post" action="{% url 'edit_job_post' job.id %}" enctype="multipart/form-data" onsubmit="return validateform()">
                     {% csrf_token %}
                     <div>
                         <label for="">Job Title</label><br>
-                        <input type="text" placeholder="Enter the Job title" name="job_title" id="job_title"><br>
+                        <input type="text" placeholder="Enter the Job title" name="job_title" id="job_title" value="{{job.job_title}}"><br>
                         <span class="error" id="job_titleerror"></span>
                     </div>
                     <div>
                         <label for="">Discription</label><br>
-                        <input type="text" placeholder="Enter the job discription" name="discription" id="discription"><br>
+                        <input type="text" placeholder="Enter the job discription" name="discription" id="discription" value="{{job.discription}}"><br>
                         <span class="error" id="discriptionerror"></span>
                     </div>
                     <div>
                         <label for="">Requirements</label><br>
-                        <input type="text" placeholder="Enter the requirements for the job" name="requirements"
-                            id="requirements"><br>
+                        <input type="text" placeholder="Enter the requirements for the job" name="requirements"id="requirements" value="{{job.requirements}}"><br>
                         <span class="error" id="requirementserror"></span>
                     </div>
                     <div>
                         <label for="">Salary range</label><br>
-                        <input type="text" placeholder="Enter the salary range" name="salary" id="salary"><br>
+                        <input type="text" placeholder="Enter the salary range" name="salary" id="salary" value="{{job.salary_range}}"><br>
                         <span class="error" id="salaryerror"></span>
                     </div>
                     <div>
                         <label for="">Location</label><br>
-                        <input type="text" placeholder="Enter the location" name="location" id="location"><br>
+                        <input type="text" placeholder="Enter the location" name="location" id="location" value="{{job.location}}"><br>
                         <span class="error" id="locationerror"></span>
                     </div>
                     <div>
                         <label for="">Application Deadline</label><br>
-                        <input type="date" placeholder="Enter the application deadline" name="deadline" id="deadline"><br>
+                        <input type="date" placeholder="Enter the application deadline" name="deadline" id="deadline" value="{{job.application_deadline|date:'Y-m-d'}}"><br>
                         <span class="error" id="deadlineerror"></span>
                     </div>
                     <div>

@@ -1,0 +1,35 @@
+<style>
+    .title{
+        display: flex;
+        gap: 4px;
+    }
+    .details0 p{
+      margin-bottom: 7px;
+      color: rgb(133, 122, 122);
+    }
+    .title p{
+      color: rgb(115, 108, 108);
+    }
+</style>
+
+
+
+<div class="title">
+    <div class="img">
+        <img src="{{job.posted_by.companylogo.url}}" width="60px" height="60px" alt="company_logo">
+    </div>
+    <div class="txt">
+        <h5><strong>{{ job.job_title }}</strong></h5>
+        <p><strong>{{ job.posted_by.companyname }}</strong></p>
+    </div>
+</div>
+<div class="details0">
+    <p>{{job.discription}}</p>
+</div>
+<p>{{ job.description }}</p>
+<p><strong>Requirements:</strong> {{ job.requirements }}</p>
+<p><strong>Salary:</strong> {{ job.salary_range }}</p>
+<p><strong>Location:</strong> {{ job.location }}</p>
+<p><strong>Deadline:</strong> {{ job.application_deadline }}</p>
+<p><strong>About Company:</strong> {{ job.posted_by.discription }}</p>
+<a href="" class="btn btn-primary mt-3">Apply</a>

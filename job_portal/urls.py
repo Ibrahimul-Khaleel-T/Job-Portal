@@ -19,6 +19,7 @@ from django.urls import path
 from job_portal_app import views
 from django.conf import settings
 from django.conf.urls.static import static
+from job_portal_app.views import JobDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,6 +43,7 @@ urlpatterns = [
     path('select_edit_job_post',views.select_edit_job_post,name='select_edit_job_post'),
     path('edit_job_post/<int:id>',views.edit_job_post,name='edit_job_post'),
     path('job_details/<int:id>', views.job_details, name='job_details'),
+    path('<int:pk>/job_post_delete',JobDeleteView.as_view(),name='job_post_delete'),
 
 
 ]

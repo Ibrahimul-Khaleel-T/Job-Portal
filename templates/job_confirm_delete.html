@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Are you sure you want to delete {{job.job_title}} ?</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        <button type="submit">Yes,Delete</button>
+    </form>
+    <a href="{% url 'select_edit_job_post' %}"><button type="submit">Cancel</button></a>
+</body>
+</html>

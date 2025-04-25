@@ -9,6 +9,9 @@ import random
 from django.contrib import messages
 from .models import Job
 from django.utils import timezone
+from django.views.generic import DeleteView
+from django .urls import reverse_lazy
+
 
 # Create your views here
 def index(request):
@@ -257,6 +260,14 @@ def edit_job_post(request,id):
         return redirect(select_edit_job_post)
     else:
         return render(request,'edit_job_post.html',{'job':job})
+    
+class JobDeleteView(DeleteView):
+    def get(self, request, pk):
+        job = get_object_or_404(Job, id=pk)
+        job_title = job.job_title
+        job.delete()
+        messages.success(request, f"The job post of '{job.job_title}' was deleted successfully.")
+        return redirect(select_edit_job_post)
   
 
     

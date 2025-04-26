@@ -26,10 +26,13 @@
 <div class="details0">
     <p>{{job.discription}}</p>
 </div>
-<p>{{ job.description }}</p>
+
 <p><strong>Requirements:</strong> {{ job.requirements }}</p>
 <p><strong>Salary:</strong> {{ job.salary_range }}</p>
 <p><strong>Location:</strong> {{ job.location }}</p>
 <p><strong>Deadline:</strong> {{ job.application_deadline }}</p>
 <p><strong>About Company:</strong> {{ job.posted_by.discription }}</p>
-<a href="" class="btn btn-primary mt-3">Apply</a>
+<form method="post" action="{% url 'apply_for_job' job.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary mt-3"><strong>Apply</strong></button>
+</form>

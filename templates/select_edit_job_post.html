@@ -1,126 +1,147 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
-    .nav-item{
-      padding: 0px 14px;
-      position: -webkit-sticky;
-      position: sticky;
-      top: 0;
-    }
-    li a:hover:not(.active){
-        background-color: #111;
-    }
-    .logo{
-        display: flex;
-        gap: 3px;
-        justify-content: center;
-        margin-top: 10px;
-        color: royalblue;
-    }
-    .job_info{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .main1{
-      display: flex;
-      gap: 6px;
-      padding: 4px;
-    }
-    .main2{
-      margin-top: 8px;
-      padding: 4px;
-    }
-    .job_title p{
-      color: rgb(115, 108, 108);
-    }
-    .details1{
-      margin-bottom: 7px;
-      color: rgb(133, 122, 122);
-    }
-    .details2 p{
-      margin-top: -3px;
-    }
-    .details3 p{
-      margin-top: -3px;
-    }
-    .details4 p{
-      margin-top: -3px;
-    }
-    .details5 p{
-      margin-top: -3px;
-    }
-    .details6 p{
-      margin-top: -3px;
-    }
-    .edit button{
-        width: 90px;
-        padding: 7px;
-        border-radius: 5px;
-        margin-top: 24px;
-        margin-bottom: 24px;
-        background-color: #0d6efd;
-        border: none;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-    }
-    .edit button:hover{
-        background-color: #2563EB;
-    }
-    .job_info li{
-      margin-top: 30px;
-      border-bottom: solid hsla(0, 4%, 89%, 0.762);
-    }
-    .no_post{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-top: 85px;
-    }
-    .n_text{
-      margin-bottom: 14px;
-    }
+  .nav-item {
+    padding: 0px 14px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+
+  li a:hover:not(.active) {
+    background-color: #111;
+  }
+
+  .logo {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    margin-top: 10px;
+    color: royalblue;
+  }
+
+  .job_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main1 {
+    display: flex;
+    gap: 6px;
+    padding: 4px;
+  }
+
+  .main2 {
+    margin-top: 8px;
+    padding: 4px;
+  }
+
+  .job_title p {
+    color: rgb(115, 108, 108);
+  }
+
+  .details1 {
+    margin-bottom: 7px;
+    color: rgb(133, 122, 122);
+  }
+
+  .details2 p {
+    margin-top: -3px;
+  }
+
+  .details3 p {
+    margin-top: -3px;
+  }
+
+  .details4 p {
+    margin-top: -3px;
+  }
+
+  .details5 p {
+    margin-top: -3px;
+  }
+
+  .details6 p {
+    margin-top: -3px;
+  }
+
+  .edit button {
+    width: 90px;
+    padding: 7px;
+    border-radius: 5px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    background-color: #0d6efd;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .edit button:hover {
+    background-color: #2563EB;
+  }
+
+  .job_info li {
+    margin-top: 30px;
+    border-bottom: solid hsla(0, 4%, 89%, 0.762);
+  }
+
+  .no_post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 85px;
+  }
+
+  .n_text {
+    margin-bottom: 14px;
+  }
+
   .ed {
     display: flex;
-    gap: 10px; /* spacing between buttons */
+    gap: 10px;
+    /* spacing between buttons */
     margin-top: 10px;
   }
+
   .ed button {
     padding: 6px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
-  .delete button{
-        width: 90px;
-        padding: 6px;
-        border-radius: 5px;
-        margin-top: 24px;
-        margin-bottom: 24px;
-        background-color:  #dc3545;
-        border: none;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-    }
-    .delete button:hover{
-        background-color: #dc3545;
-    }
-  
 
+  .delete button {
+    width: 90px;
+    padding: 6px;
+    border-radius: 5px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
 
+  .delete button:hover {
+    background-color: #dc3545;
+  }
 </style>
+
 <body>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
@@ -139,152 +160,128 @@
       </div>
     </div>
   </nav>
-    <div class="logo">
-      <div class="logo_name">
-        <h5><strong>Job Portal</strong></h5>
-      </div>
-      <div class="logo_img">
-        <img src="{% static 'images/maxresdefault1.jpg' %}" width="38px" height="30px" alt="logo">
-      </div>
+  <div class="logo">
+    <div class="logo_name">
+      <h5><strong>Job Portal</strong></h5>
     </div>
-    <div class="job_info">
-      <!-- {% if messages %}
-  <div class="container mt-3">
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
+    <div class="logo_img">
+      <img src="{% static 'images/maxresdefault1.jpg' %}" width="38px" height="30px" alt="logo">
+    </div>
   </div>
-{% endif %} -->
-<!-- base.html or the template where you want to show the alert -->
-<!-- {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        {% endfor %}
-    </div>
-{% endif %} -->
-<!-- base.html or the template where you want to show the popup message -->
-{% if messages %}
-    <div id="popup-message" class="alert alert-success text-center" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: auto; padding: 10px 20px; border-radius: 5px; display: none;">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
+  <div class="job_info">
+    {% if messages %}
+    <div id="popup-message" class="alert alert-success text-center"
+      style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: auto; padding: 10px 20px; border-radius: 5px; display: none;">
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
     </div>
 
     <script>
-        // Show the popup message
-        window.onload = function() {
-            var messageElement = document.getElementById("popup-message");
-            if (messageElement) {
-                messageElement.style.display = "block"; // Show the message
 
-                // After 3 seconds, fade out and remove the message
-                setTimeout(function() {
-                    messageElement.style.transition = "opacity 1s";
-                    messageElement.style.opacity = "0";
-                    setTimeout(function() {
-                        messageElement.style.display = "none"; // Hide the message
-                    }, 1000);
-                }, 3000);
-            }
+      window.onload = function () {
+        var messageElement = document.getElementById("popup-message");
+        if (messageElement) {
+          messageElement.style.display = "block";
+
+          setTimeout(function () {
+            messageElement.style.transition = "opacity 1s";
+            messageElement.style.opacity = "0";
+            setTimeout(function () {
+              messageElement.style.display = "none";
+            }, 1000);
+          }, 3000);
         }
+      }
     </script>
-{% endif %}
+    {% endif %}
 
 
 
-      {% if jobs %}
-      <ul>
-        {% for job in jobs %}
-        <li>
-          <div class="main1">
-            <div class="company_logo">
-              <img src="{{job.posted_by.companylogo.url}}" width="60px" height="60px" alt="company logo">
-            </div>
-            <div class="job_title">
-              <h5><strong>{{job.job_title}}</strong></h5>
-              <p>{{job.posted_by.companyname}}</p>
-            </div>
+    {% if jobs %}
+    <ul>
+      {% for job in jobs %}
+      <li>
+        <div class="main1">
+          <div class="company_logo">
+            <img src="{{job.posted_by.companylogo.url}}" width="60px" height="60px" alt="company logo">
           </div>
-          <div class="main2">
-            <div class="details1">
-              <p>{{job.discription}}</p>
+          <div class="job_title">
+            <h5><strong>{{job.job_title}}</strong></h5>
+            <p>{{job.posted_by.companyname}}</p>
+          </div>
+        </div>
+        <div class="main2">
+          <div class="details1">
+            <p>{{job.discription}}</p>
+          </div>
+          <div class="details2">
+            <h6><strong>Requirements:</strong></h6>
+            <p>{{job.requirements}}</p>
+          </div>
+          <div class="details3">
+            <h6><strong>Salary Range:</strong></h6>
+            <p>{{job.salary_range}}</p>
+          </div>
+          <div class="details4">
+            <h6><strong>Location:</strong></h6>
+            <p>{{job.location}}</p>
+          </div>
+          <div class="details5">
+            <h6><strong>Deadline:</strong></h6>
+            <p>{{job.application_deadline}}</p>
+          </div>
+          <div class="details6">
+            <h6><strong>About company:</strong></h6>
+            <p>{{job.posted_by.discription}}</p>
+          </div>
+          <div class="ed">
+            <div class="edit">
+              <a href="{% url 'edit_job_post' job.id %}"><button type="submit">Edit</button></a>
             </div>
-            <div class="details2">
-              <h6><strong>Requirements:</strong></h6>
-              <p>{{job.requirements}}</p>
-            </div>
-            <div class="details3">
-              <h6><strong>Salary Range:</strong></h6>
-              <p>{{job.salary_range}}</p>
-            </div>
-            <div class="details4">
-              <h6><strong>Location:</strong></h6>
-              <p>{{job.location}}</p>
-            </div>
-            <div class="details5">
-              <h6><strong>Deadline:</strong></h6>
-              <p>{{job.application_deadline}}</p>
-            </div>
-            <div class="details6">
-              <h6><strong>About company:</strong></h6>
-              <p>{{job.posted_by.discription}}</p>
-              </div>
-              <div class="ed">
-                <div class="edit">
-                  <a href="{% url 'edit_job_post' job.id %}"><button type="submit">Edit</button></a>
-                </div>
-                <!-- Delete Button -->
-                <div class="delete">
-                  <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ job.id }}">Delete</button>
-                </div>
 
-                <!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal{{ job.id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="delete">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ job.id }}">Delete</button>
+            </div>
+
+            <div class="modal fade" id="deleteModal{{ job.id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you want to delete <strong>{{ job.job_title }}</strong>?
+                  </div>
+                  <div class="modal-footer">
+                    <a href="{% url 'job_post_delete' job.id %}" class="btn btn-danger">Yes, Delete</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="no_post">
+      <div class="n_text">
+        <h5>You don't have posts !</h5>
       </div>
-      <div class="modal-body">
-        Are you sure you want to delete <strong>{{ job.job_title }}</strong>?
-      </div>
-      <div class="modal-footer">
-        <a href="{% url 'job_post_delete' job.id %}" class="btn btn-danger">Yes, Delete</a>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      <div class="n_img">
+        <img src="{% static 'images/Wavy_Ppl1.jpg' %}" height="420px" width="500px" alt="no_post">
       </div>
     </div>
+    {% endif %}
   </div>
-</div>
 
-              </div>
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <div class="no_post">
-        <div class="n_text">
-          <h5>You don't have posts !</h5>
-        </div>
-        <div class="n_img">
-          <img src="{% static 'images/Wavy_Ppl1.jpg' %}" height="420px" width="500px" alt="no_post">
-        </div>
-      </div>
-      {% endif %}
-    </div>
 
-   
-    
+
 </body>
-</html>
 
+</html>

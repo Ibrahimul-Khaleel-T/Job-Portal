@@ -44,8 +44,7 @@ urlpatterns = [
     path('edit_job_post/<int:id>',views.edit_job_post,name='edit_job_post'),
     path('job_details/<int:id>', views.job_details, name='job_details'),
     path('<int:pk>/job_post_delete',JobDeleteView.as_view(),name='job_post_delete'),
-
-
+    path('apply/<int:job_id>/', views.apply_for_job, name='apply_for_job'),
 ]
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

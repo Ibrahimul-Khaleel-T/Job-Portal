@@ -7,10 +7,13 @@ from .models import Employee
 from django.core.mail import send_mail
 import random
 from django.contrib import messages
-from .models import Job
-from django.utils import timezone
+from .models import Job,Application
 from django.views.generic import DeleteView
-from django .urls import reverse_lazy
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
+
+
 
 
 # Create your views here
@@ -18,8 +21,9 @@ def index(request):
     return render(request,'index_page.html')
 
 def seeker_home(request):
-    jobs=Job.objects.all()
-    return render(request,'seeker_feed.html',{'jobs':jobs})
+    current_date = timezone.now().date()
+    jobs = Job.objects.filter(application_deadline__gte=current_date)
+    return render(request, 'seeker_feed.html', {'jobs': jobs})
 
 def job_ajax_details(request, job_id):
     job = get_object_or_404(Job, id=job_id)
@@ -268,7 +272,32 @@ class JobDeleteView(DeleteView):
         job.delete()
         messages.success(request, f"The job post of '{job.job_title}' was deleted successfully.")
         return redirect(select_edit_job_post)
-  
+    
+@login_required
+def apply_for_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    jobseeker = get_object_or_404(JobSeeker, user_id=request.user)
+
+    Application.objects.create(job=job, jobseeker=jobseeker)
+
+    employer_email = job.posted_by.user_id.email
+
+    subject = f"New Application for: {job.job_title}"
+    message = f"{request.user.username} has applied for your job.\n\nCheck the resume attached."
+
+    email = EmailMessage(subject, message, to=[employer_email])
+    if jobseeker.resume:
+        email.attach_file(jobseeker.resume.path)
+    email.send()
+    messages.success(request, f"Your application was sent to '{job.posted_by.companyname}'!")
+    return redirect('seeker_home')
+
+
+
+
+
+    
+
 
     
 

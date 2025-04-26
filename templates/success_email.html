@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="contianer">
+        <div class="img">
+            <img src="{% static 'images/done.jpeg'%}" height="55px" width="65px" alt="success">
+        </div>
+        <div class="msg">
+            <h3>Your application was sent to<br>{{job.job_title}}</h3>
+        </div>
+        <div class="btn">
+            <a href=""><button type="submit">OK</button></a>
+        </div>
+    </div>
+</body>
+</html>

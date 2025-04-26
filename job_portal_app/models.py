@@ -19,7 +19,7 @@ class Employee(models.Model):
     companyindustry=models.CharField(max_length=25)
     discription=models.CharField(max_length=250)
     companylogo=models.FileField(null=True,blank=True)
-
+    
 class Job(models.Model):
     job_title=models.CharField(max_length=250)
     discription=models.TextField()
@@ -28,3 +28,9 @@ class Job(models.Model):
     location=models.CharField(max_length=250)
     application_deadline=models.DateField()
     posted_by=models.ForeignKey(Employee,on_delete=models.CASCADE)
+    user_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+
+class Application(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    jobseeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE)
+    applied_at = models.DateTimeField(auto_now_add=True)

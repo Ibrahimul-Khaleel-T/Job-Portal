@@ -28,9 +28,64 @@
         margin-top: 10px;
         color: royalblue;
     }
+    .applicants h4{
+      padding: 7px;
+      margin-bottom: 20px;
+    }
+    .applicants li{
+      padding: 17px;
+    }
+    .applicants p{
+      margin: 6px 0;
+    }
+    .applicants a{
+      text-decoration: none;
+    }
+    .app_list{
+      display: flex;
+      gap: 6px;
+    }
+     /* Keep your existing styles */
+
+  .details {
+    width: 50%;
+    height: 85vh;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+    padding-right: 10px;
+  }
+  .details ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .job_list a {
+    text-decoration: none;
+    color: #0073e6;
+    font-weight: 500;
+  }
+  .job_list a:hover {
+    text-decoration: underline;
+  }
+
+  .job-details {
+    width: 50%;
+    min-height: 85vh;
+    background-color: #f9f9f9; /* light background */
+    padding: 25px;
+    overflow-y: auto;
+  }
+
+  /* Spinner */
+  .spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+  }
 </style>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
@@ -62,5 +117,72 @@
           </div>
         </div>
       </div>
+      <div class="container-fluid mt-3">
+        <div class="row">
+          <!-- Left Side: List of Applications -->
+          <div class="col-md-6">
+            <div class="applicants">
+              <h4><strong>Applications for Your Jobs</strong></h4>
+      
+              {% if applications %}
+              <ul>
+                {% for app in applications %}
+                <li>
+                  <div class="app_list">
+                    <div class="img">
+                      {% if app.jobseeker.dp %}
+                      <img src="{{ app.jobseeker.dp.url }}" width="100px" height="100px" alt="Profile Picture">
+                      {% else %}
+                      <img src="{% static 'images/default_dp.png' %}" width="100px" height="100px" alt="Default Picture">
+                      {% endif %}
+                    </div>
+                    <div class="info">
+                      <h5><strong>{{ app.job.job_title }}</strong></h5>
+                      <p>Applicant: {{ app.jobseeker.firstname }} {{ app.jobseeker.lastname }}</p>
+                      <p>Applied on: {{ app.applied_at|date:"d M Y, H:i" }}</p>
+                      <a href="#" onclick="loadApplicantDetails('{{ app.id }}')">More info</a>
+                    </div>
+                  </div>
+                </li>
+                <hr>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p>No applications yet.</p>
+              {% endif %}
+            </div>
+          </div>
+      
+          <!-- Right Side: Details Section -->
+          <div class="col-md-6">
+            <div id="job-details" class="job-details">
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <script>
+        function loadApplicantDetails(appId) {
+          const detailsDiv = document.getElementById('job-details');
+
+  
+  detailsDiv.innerHTML = `
+    <div class="spinner">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  `;
+
+  fetch(`/load_applicant_details/${appId}/`)
+    .then(response => response.text())
+    .then(data => {
+      detailsDiv.innerHTML = data;
+    });
+}
+
+      </script>
+      
 </body>
 </html>

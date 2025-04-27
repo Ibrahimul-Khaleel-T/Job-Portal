@@ -30,8 +30,8 @@
     .main{
         display: flex;
         justify-content: center;
-        margin-top: 35px;
-        gap: 10px;
+        margin-top: -30px;
+        gap: 30px;
     }
     form{
         background:  whitesmoke; 
@@ -63,6 +63,12 @@
         color: black;
     }
     .resume input[type="file"] {
+        width: 350px;
+        padding: 7px;
+        margin-left: 4px;
+        margin-top: -2px;
+    }
+    .dp input[type="file"] {
         width: 350px;
         padding: 7px;
         margin-left: 4px;
@@ -135,6 +141,11 @@
                     <input type="file" name="resume" id="resume">
                     <span class="error" id="resumeerror"></span>
                 </div>
+                <div class="dp">
+                    <label for="">Profile Photo</label>
+                    <input type="file" name="dp" id="dp">
+                    <span class="error" id="dperror"></span>
+                </div>
                 <div class="signup">
                     <button type="submit">Sign up</button>
                 </div>
@@ -162,6 +173,7 @@
         let number=document.getElementById("number").value.trim();
         let password=document.getElementById("password").value.trim();
         let resume=document.getElementById("resume").value.trim();
+        let dp=document.getElementById("dp").value;
         if(firstname===""){
             document.getElementById("firstnameerror").innerText="First name is required";
             isvalid=false;
@@ -203,6 +215,15 @@
                 document.getElementById("resumeerror").innerText = "Upload PDF or DOCX only";
                 isvalid = false;
         }
+        if (dp === "") {
+            document.getElementById("dperror").innerText = "Profile photo is required";
+            isvalid = false;
+        } 
+        let allowedImageExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (!allowedImageExtensions.exec(dp)) {
+                 document.getElementById("dperror").innerText = "Only JPG, JPEG, or PNG files are allowed";
+                 isvalid = false;
+        }       
 
         return isvalid;
     }

@@ -49,7 +49,7 @@
       align-items: center;
      }
      form{
-      margin-top: 25px;
+      margin-top: 7px;
       border-radius: 9px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
@@ -73,7 +73,7 @@
         width: 150px;
         padding: 7px;
         border-radius: 5px;
-        margin-top: 60px;
+        margin-top: 20px;
         margin-bottom: 10px;
         background-color: rgb(42, 42, 255);
         border: none;
@@ -149,7 +149,13 @@
             <a href="{{data.resume.url}}" target="_blank">View existing resume</a><br>
             {% endif %}
             <span class="error" id="resumeerror"></span>
-
+          </div>
+          <div>
+            <input type="file" name="dp"><br>
+            {% if data.dp %}
+            <a href="{{data.dp.url}}" target="_blank">View existing profile photo</a><br>
+            {% endif %}
+            <span class="error" id="dperror"></span>
           </div>
           <button type="submit">Save</button>
         </form>
@@ -166,6 +172,7 @@
     let email = document.getElementById("email").value.trim();
     let number = document.getElementById("number").value.trim();
     let resume = document.getElementById("resume").value.trim();
+    let dp = document.getElementById("dp").value;
     if (firstname === "") {
       document.getElementById("firstnameerror").innerText = "First name is required";
       isvalid = false;
@@ -201,7 +208,15 @@
       document.getElementById("resumeerror").innerText = "Upload PDF or DOCX only";
       isvalid = false;
     }
-
+    if (dp === "") {
+            document.getElementById("dperror").innerText = "Profile photo is required";
+            isvalid = false;
+    } 
+    let allowedImageExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if (!allowedImageExtensions.exec(dp)) {
+      document.getElementById("dperror").innerText = "Only JPG, JPEG, or PNG files are allowed";
+      isvalid = false;
+    }       
     return isvalid;
   }
 </script>

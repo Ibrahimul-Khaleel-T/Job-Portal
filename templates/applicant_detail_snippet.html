@@ -1,0 +1,89 @@
+<style>
+  .title{
+    display: flex;
+    gap: 4px;
+  }
+  .txt p{
+    color: rgb(115, 108, 108);
+  }
+  a{
+    text-decoration: none;
+  }
+  .txt1{
+    margin-top: 10px;
+  }
+  .btn{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .accept button{
+    width: 90px;
+    padding: 7px;
+    border-radius: 5px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    background-color: #0d6efd;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .accept button:hover{
+    background-color: #2563EB;
+  }
+  .reject button{
+    width: 90px;
+    padding: 6px;
+    border-radius: 5px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .reject button:hover{
+    background-color: #dc3545;
+  }
+</style>
+
+
+
+  <div class="title">
+    <div class="img">
+      <img src="{{ application.jobseeker.dp.url }}" width="100px" height="90px" alt="dp">
+    </div>
+    <div class="txt">
+      <h5>{{ application.jobseeker.firstname }} {{ application.jobseeker.lastname }}</h5>
+      <p><strong>{{ application.jobseeker.user_id.username }}</strong></p>
+    </div>
+  </div>
+  <div class="txt1"> 
+    <p><strong>Email:</strong> {{ application.jobseeker.user_id.email }}</p>
+    <p><strong>Phone:</strong> {{ application.jobseeker.number }}</p>
+    <p><strong>Applied For:</strong> {{ application.job.job_title }}</p>
+    <p><strong>Applied At:</strong> {{ application.applied_at|date:"d M Y, H:i" }}</p>
+    {% if application.jobseeker.resume %}
+     <a href="{{ application.jobseeker.resume.url }}" target="_blank">View Resume</a></p>
+    {% else %}
+      <p>No Resume uploaded.</p>
+    {% endif %}
+  </div>
+
+<div class="btn">
+  <div class="accept">
+    <form method="post" action="">
+      {% csrf_token %}
+      <button type="submit"><strong>Accept</strong></button>
+    </form>
+  </div>
+  <div class="reject">
+    <form method="post" action="">
+      {% csrf_token %}
+      <button type="submit"><strong>Reject</strong></button>
+    </form>
+  </div>
+</div>
+  

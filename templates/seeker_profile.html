@@ -78,6 +78,11 @@
       </div>
     </div>
     <div class="main">
+      {% if data.dp %}
+      <img src="{{data.dp.url}}" alt="dp" height="100px" width="100px">
+      {% else %}
+      <h6><b>Profile Photo</b> :Not uploaded</h6>
+      {% endif %}
       <h6><b>Username</b>:{{details.username}}</h6>
       <h6><b>Firstname</b>.:{{data.firstname}}</h6>
       <h6><b>Lastname</b>:{{data.lastname}}</h6>

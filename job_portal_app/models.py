@@ -6,12 +6,15 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     user_type=models.CharField(max_length=25)
 
+
 class JobSeeker(models.Model):
     user_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     firstname=models.CharField(max_length=25)
     lastname=models.CharField(max_length=25)
     number=models.IntegerField(null=True,blank=True)
     resume=models.FileField(null=True,blank=True)
+    dp=models.FileField(null=True,blank=True)
+
 
 class Employee(models.Model):
     user_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
@@ -19,7 +22,8 @@ class Employee(models.Model):
     companyindustry=models.CharField(max_length=25)
     discription=models.CharField(max_length=250)
     companylogo=models.FileField(null=True,blank=True)
-    
+
+
 class Job(models.Model):
     job_title=models.CharField(max_length=250)
     discription=models.TextField()
@@ -29,6 +33,7 @@ class Job(models.Model):
     application_deadline=models.DateField()
     posted_by=models.ForeignKey(Employee,on_delete=models.CASCADE)
     user_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+
 
 class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)

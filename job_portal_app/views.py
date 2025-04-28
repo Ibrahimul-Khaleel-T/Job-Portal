@@ -7,11 +7,12 @@ from .models import Employee
 from django.core.mail import send_mail
 import random
 from django.contrib import messages
-from .models import Job,Application
+from .models import Job,Application,EmailRecord
 from django.views.generic import DeleteView
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
+from django.conf import settings
 
 
 
@@ -312,7 +313,7 @@ def apply_for_job(request, job_id):
     employer_email = job.posted_by.user_id.email
 
     subject = f"New Application for: {job.job_title}"
-    message = f"{request.user.username} has applied for your job.\n\nCheck the resume attached."
+    message = f"{jobseeker.firstname} {jobseeker.lastname} has applied for {job.job_title}.\n\nCheck the resume attached."
 
     email = EmailMessage(subject, message, to=[employer_email])
     if jobseeker.resume:
@@ -320,6 +321,45 @@ def apply_for_job(request, job_id):
     email.send()
     messages.success(request, f"Your application was sent to '{job.posted_by.companyname}'!")
     return redirect('seeker_home')
+
+
+def job_application_response(request,application_id):
+    application = get_object_or_404(Application, id=application_id)
+    job=application.job
+    jobseeker = application.jobseeker
+    applicant_email = jobseeker.user_id.email
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        
+        if action == 'accept':
+            send_mail(
+                'Congratulations! Interview Scheduled',
+                f'Dear {jobseeker.firstname} {jobseeker.lastname},\n\nCongratulations! You have been shortlisted for the application of {job.posted_by.companyname} for {job.job_title}. We will contact you soon with the schedule.\n\nBest regards,\n{job.posted_by.companyname}',
+                settings.DEFAULT_FROM_EMAIL,
+                [applicant_email],
+                fail_silently=False,
+            )
+        elif action == 'reject':
+            send_mail(
+                'Application Update',
+                f'Dear {jobseeker.firstname} {jobseeker.lastname},\n\nThank you for your interest. After careful consideration, we regret to inform you that you have not been selected.\n\nBest wishes,\n{job.posted_by.companyname}',
+                settings.DEFAULT_FROM_EMAIL,
+                [applicant_email],
+                fail_silently=False,
+            )
+        EmailRecord.objects.create(jobseeker=jobseeker,job=job,action=action,)
+        messages.success(request,f"Your response was sent to '{jobseeker.firstname} {jobseeker.lastname}'!")
+        return redirect(employee_home) 
+
+    return render(request, 'employee_home.html')
+
+
+def seeker_notification(request):
+    jobseeker=JobSeeker.objects.get(user_id=request.user)
+    emails=EmailRecord.objects.filter(jobseeker=jobseeker).order_by('-sent_at')
+    return render(request,'seeker_notification.html',{'emails':emails})
+
 
 
 

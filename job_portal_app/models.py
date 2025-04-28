@@ -39,3 +39,12 @@ class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     jobseeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE)
     applied_at = models.DateTimeField(auto_now_add=True)
+
+
+class EmailRecord(models.Model):
+    jobseeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    action = models.CharField(max_length=10) 
+    sent_at = models.DateTimeField(auto_now_add=True)
+
+    

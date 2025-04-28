@@ -23,14 +23,14 @@
     border-radius: 5px;
     margin-top: 24px;
     margin-bottom: 24px;
-    background-color: #0d6efd;
+    background-color: rgb(17, 160, 17);
     border: none;
     color: white;
     cursor: pointer;
     font-weight: bold;
   }
   .accept button:hover{
-    background-color: #2563EB;
+    background-color: rgb(33, 121, 33);
   }
   .reject button{
     width: 90px;
@@ -38,7 +38,7 @@
     border-radius: 5px;
     margin-top: 24px;
     margin-bottom: 24px;
-    background-color: #dc3545;
+    background-color: #d21d2f;
     border: none;
     color: white;
     cursor: pointer;
@@ -47,6 +47,8 @@
   .reject button:hover{
     background-color: #dc3545;
   }
+
+
 </style>
 
 
@@ -74,15 +76,15 @@
 
 <div class="btn">
   <div class="accept">
-    <form method="post" action="">
+    <form method="post" action="{% url 'job_application_response' application.id %}">
       {% csrf_token %}
-      <button type="submit"><strong>Accept</strong></button>
+      <button type="submit" name="action" value="accept"><strong>Accept</strong></button>
     </form>
   </div>
   <div class="reject">
-    <form method="post" action="">
+    <form method="post" action="{% url 'job_application_response' application.id %}">
       {% csrf_token %}
-      <button type="submit"><strong>Reject</strong></button>
+      <button type="submit" name="action" value="reject"><strong>Reject</strong></button>
     </form>
   </div>
 </div>

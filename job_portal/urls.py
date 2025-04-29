@@ -48,6 +48,8 @@ urlpatterns = [
     path('load_applicant_details/<int:id>/', views.load_applicant_details, name='load_applicant_details'),
     path('job_application_response/<int:application_id>',views.job_application_response,name='job_application_response'),
     path('seeker_notification',views.seeker_notification,name='seeker_notification'),
+    path('seeker_notification_detail/<int:id>/', views.seeker_notification_detail, name='seeker_notification_detail'),
+
 ]    
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

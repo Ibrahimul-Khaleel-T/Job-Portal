@@ -333,22 +333,18 @@ def job_application_response(request,application_id):
         action = request.POST.get('action')
         
         if action == 'accept':
-            send_mail(
-                'Congratulations! Interview Scheduled',
-                f'Dear {jobseeker.firstname} {jobseeker.lastname},\n\nCongratulations! You have been shortlisted for the application of {job.posted_by.companyname} for {job.job_title}. We will contact you soon with the schedule.\n\nBest regards,\n{job.posted_by.companyname}',
-                settings.DEFAULT_FROM_EMAIL,
-                [applicant_email],
-                fail_silently=False,
-            )
+                subject="Congratulations! Interview Scheduled"
+                message=f"Dear {jobseeker.firstname} {jobseeker.lastname},\n\nCongratulations! You have been shortlisted for the application of {job.posted_by.companyname} for {job.job_title}. We will contact you soon with the schedule.\n\nBest regards,\n{job.posted_by.companyname}"
+                
+                email = EmailMessage(subject,message,to=[applicant_email])
+                email.send()
         elif action == 'reject':
-            send_mail(
-                'Application Update',
-                f'Dear {jobseeker.firstname} {jobseeker.lastname},\n\nThank you for your interest. After careful consideration, we regret to inform you that you have not been selected.\n\nBest wishes,\n{job.posted_by.companyname}',
-                settings.DEFAULT_FROM_EMAIL,
-                [applicant_email],
-                fail_silently=False,
-            )
-        EmailRecord.objects.create(jobseeker=jobseeker,job=job,action=action,)
+                subject="Application Update"
+                message=f"Dear {jobseeker.firstname} {jobseeker.lastname},\n\nThank you for your interest. After careful consideration, we regret to inform you that you have not been selected.\n\nBest wishes,\n{job.posted_by.companyname}"
+                
+                email=EmailMessage(subject,message,to=[applicant_email])
+                email.send()
+        EmailRecord.objects.create(jobseeker=jobseeker,job=job,action=action,subject=subject,message=message)
         messages.success(request,f"Your response was sent to '{jobseeker.firstname} {jobseeker.lastname}'!")
         return redirect(employee_home) 
 
@@ -356,10 +352,14 @@ def job_application_response(request,application_id):
 
 
 def seeker_notification(request):
-    jobseeker=JobSeeker.objects.get(user_id=request.user)
+    jobseeker=JobSeeker.objects.get(user_id=request.user.pk)
     emails=EmailRecord.objects.filter(jobseeker=jobseeker).order_by('-sent_at')
-    return render(request,'seeker_notification.html',{'emails':emails})
+    return render(request,'seeker_notification.html',{'emails':emails}) 
 
+
+def seeker_notification_detail(request, id):
+    notification = get_object_or_404(EmailRecord, id=id)
+    return render(request, 'seeker_notification_snippet.html', {'notification': notification})
 
 
 

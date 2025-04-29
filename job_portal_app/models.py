@@ -45,6 +45,8 @@ class EmailRecord(models.Model):
     jobseeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     action = models.CharField(max_length=10) 
+    subject=models.CharField(max_length=250)
+    message=models.CharField(max_length=25000,default="Default message")
     sent_at = models.DateTimeField(auto_now_add=True)
 
     

@@ -12,7 +12,7 @@ from django.views.generic import DeleteView
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
-from django.conf import settings
+from django.db.models import Q
 
 
 
@@ -56,6 +56,10 @@ def jobseeker_signup(request):
         password=request.POST['password']
         resume=request.FILES.get('resume')
         dp=request.FILES.get('dp')
+        if CustomUser.objects.filter(username=username).exists():
+            messages.error(request, "The username is not available! Try another.")
+            return render(request, 'seeker_signup.html')
+
         data=CustomUser.objects.create_user(username=username,email=email,password=password,user_type="jobseeker")
         data.save()
         details=JobSeeker.objects.create(user_id=data,firstname=firstname,lastname=lastname,number=number,resume=resume,dp=dp)
@@ -76,6 +80,9 @@ def employee_signup(request):
         username=request.POST['username']
         password=request.POST['password']
         companylogo=request.FILES.get('companylogo')
+        if CustomUser.objects.filter(username=username).exists():
+            messages.error(request, "The username is not available! Try another.")
+            return render(request, 'employee_signup.html')
         data=CustomUser.objects.create_user(email=email,username=username,password=password,user_type="employee")
         data.save()
         details=Employee.objects.create(user_id=data,companyname=companyname,companyindustry=companyindustry,discription=discription,companylogo=companylogo)
@@ -360,6 +367,28 @@ def seeker_notification(request):
 def seeker_notification_detail(request, id):
     notification = get_object_or_404(EmailRecord, id=id)
     return render(request, 'seeker_notification_snippet.html', {'notification': notification})
+
+
+def job_search(request):
+    query = request.GET.get('q', '')
+    current_date = timezone.now().date()
+    jobs = Job.objects.filter(application_deadline__gte=current_date)
+
+    if query:
+        keywords = query.split()
+        q_objects = Q()
+        for word in keywords:
+            if word.isdigit():
+                q_objects |= Q(salary_range__lte=word)
+            else:
+                q_objects |= Q(job_title__icontains=word)
+                q_objects |= Q(location__icontains=word)
+                q_objects |= Q(posted_by__companyname__icontains=word)
+                q_objects |= Q(posted_by__companyindustry__icontains=word)
+
+        jobs = jobs.filter(q_objects).distinct()
+    return render(request, 'seeker_feed.html', {'jobs': jobs})
+
 
 
 

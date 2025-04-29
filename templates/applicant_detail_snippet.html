@@ -1,3 +1,5 @@
+{% load static %}
+
 <style>
   .title{
     display: flex;
@@ -55,7 +57,11 @@
 
   <div class="title">
     <div class="img">
+      {% if application.jobseeker.dp %}
       <img src="{{ application.jobseeker.dp.url }}" width="100px" height="90px" alt="dp">
+      {% else %}
+      <img src="{% static 'images/default_dp.png' %}" width="100px" height="90px" alt="Default Picture">
+      {% endif %}
     </div>
     <div class="txt">
       <h5>{{ application.jobseeker.firstname }} {{ application.jobseeker.lastname }}</h5>

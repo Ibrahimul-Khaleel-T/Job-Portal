@@ -215,19 +215,46 @@
                 document.getElementById("resumeerror").innerText = "Upload PDF or DOCX only";
                 isvalid = false;
         }
-        if (dp === "") {
-            document.getElementById("dperror").innerText = "Profile photo is required";
-            isvalid = false;
-        } 
-        let allowedImageExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-            if (!allowedImageExtensions.exec(dp)) {
-                 document.getElementById("dperror").innerText = "Only JPG, JPEG, or PNG files are allowed";
-                 isvalid = false;
-        }       
+        // if (dp === "") {
+        //     document.getElementById("dperror").innerText = "Profile photo is required";
+        //     isvalid = false;
+        // } 
+        // let allowedImageExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        //     if (!allowedImageExtensions.exec(dp)) {
+        //          document.getElementById("dperror").innerText = "Only JPG, JPEG, or PNG files are allowed";
+        //          isvalid = false;
+        // }       
 
         return isvalid;
     }
 </script>
+
+{% if messages %}
+    <div id="popup-message" class="alert alert-success text-center"
+      style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: auto; padding: 10px 20px; border-radius: 5px; display: none;">
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
+    </div>
+
+    <script>
+
+      window.onload = function () {
+        var messageElement = document.getElementById("popup-message");
+        if (messageElement) {
+          messageElement.style.display = "block";
+
+          setTimeout(function () {
+            messageElement.style.transition = "opacity 1s";
+            messageElement.style.opacity = "0";
+            setTimeout(function () {
+              messageElement.style.display = "none";
+            }, 1000);
+          }, 3000);
+        }
+      }
+    </script>
+    {% endif %}
 </body>
 
 {% endblock %}

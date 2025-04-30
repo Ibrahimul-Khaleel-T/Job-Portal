@@ -10,6 +10,21 @@
     .title p{
       color: rgb(115, 108, 108);
     }
+    .btn_grps{
+      display: flex;
+      gap: 10px;
+    }
+    .check_btn button{
+      margin-top: 15px;
+      background-color: rgb(24, 169, 24);
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+    }
+    .check_btn button:hover{
+      background-color: rgb(11, 138, 11);
+      color: white;
+    }
 </style>
 
 
@@ -32,7 +47,21 @@
 <p><strong>Location:</strong> {{ job.location }}</p>
 <p><strong>Deadline:</strong> {{ job.application_deadline }}</p>
 <p><strong>About Company:</strong> {{ job.posted_by.discription }}</p>
-<form method="post" action="{% url 'apply_for_job' job.id %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary mt-3"><strong>Apply</strong></button>
-</form>
+<div class="btn_grps">
+  <div class="apply_btn">
+    <form method="post" action="{% url 'apply_for_job' job.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary mt-3"><strong>Apply</strong></button>
+  </form>
+  </div>
+  <div class="check_btn">
+      <button class="btn" id="checkResumeBtn">Check Resume Match</button>
+  </div>
+</div>
+<div id="matchScoreResult" style="margin-top:10px;"></div>
+  
+  
+
+  
+  
+

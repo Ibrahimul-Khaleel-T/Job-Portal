@@ -13,6 +13,14 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.db.models import Q
+import json
+import os
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from .utils import extract_text_from_pdf
 
 
 
@@ -388,6 +396,40 @@ def job_search(request):
 
         jobs = jobs.filter(q_objects).distinct()
     return render(request, 'seeker_feed.html', {'jobs': jobs})
+
+
+@csrf_exempt  
+def check_resume_match(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "Unauthorized"}, status=401)
+
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            job_id = data.get("job_id")
+            print("check_resume_match called with job_id:", job_id)
+
+            job = Job.objects.get(id=job_id)
+            seeker = JobSeeker.objects.get(user_id=request.user)
+
+            if not seeker.resume:
+                return JsonResponse({"match_score": 0, "error": "No resume uploaded."})
+
+            resume_text = extract_text_from_pdf(seeker.resume.path)
+            job_text = f"{job.job_title} {job.discription} {job.requirements}"
+
+            tfidf = TfidfVectorizer().fit_transform([job_text, resume_text])
+            score = cosine_similarity(tfidf[0:1], tfidf[1:2])[0][0]
+            match_score = round(score * 100, 2)
+
+            return JsonResponse({"match_score": match_score})
+
+        except Exception as e:
+            print("Error:", str(e))
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
 
 
 

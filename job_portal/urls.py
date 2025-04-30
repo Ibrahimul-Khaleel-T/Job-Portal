@@ -50,6 +50,8 @@ urlpatterns = [
     path('seeker_notification',views.seeker_notification,name='seeker_notification'),
     path('seeker_notification_detail/<int:id>/', views.seeker_notification_detail, name='seeker_notification_detail'),
     path('job_search/', views.job_search, name='job_search'),
+    path("check_resume_match/", views.check_resume_match, name="check_resume_match"),
+
 ]    
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

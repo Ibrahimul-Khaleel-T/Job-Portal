@@ -20,8 +20,11 @@ from job_portal_app import views
 from django.conf import settings
 from django.conf.urls.static import static
 from job_portal_app.views import JobDeleteView
+from django.conf.urls import include
+
 
 urlpatterns = [
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     path('',views.index,name='menu'),   
     path('seeker_signup',views.jobseeker_signup,name='seeker_signup'),

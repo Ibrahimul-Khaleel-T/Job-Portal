@@ -53,6 +53,31 @@
       margin-top: 60px;
       margin-left: 50px;
     }
+    .bottom{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 240px;
+      background-color: black;
+      color: white;
+      padding: 70px;
+    }
+    .about{
+      margin-bottom: 15px;
+    }
+    .para p{
+      font-weight: 600;
+      font-size: small;
+    }
+    .a_data p{
+      font-weight: 600;
+      font-size: small; 
+    }
+    #rotatingImage {
+  transition: opacity 0.5s ease-in-out;
+}
+
   </style>
 </head>
 
@@ -80,9 +105,44 @@
       <h3>Welcome to your <br>professional community</h3>
       </div>
       <div class="image">
-        <img src="{% static 'images/community_image.jpg.png' %}" height="350px" width="380px" alt="welcome">
+          <img id="rotatingImage" src="{% static 'images/community_image.jpg.png' %}" height="350px" width="380px" alt="welcome">       
       </div>
     </div>
+
+
+   <div class="bottom">
+    <div class="about">
+      <h6>ABOUT</h6>
+    </div>
+    <div class="para">
+      <p>The Job Portal is a web-based platform designed to connect job seekers with employers.<br>
+         The system allows users to register as either job seekers or employers. Job seekers can <br>
+         create profiles, upload resumes, and apply for jobs, while employers can post job listings <br>
+         and manage applications.</p>
+    </div>
+    <div class="a_data">
+      <p>📞 9544922235,✉️ kha7ee7@gmail.com,🌐 Malappuram-Kerala-India</p>
+    </div>
+   </div> 
+
+
+   <script>
+    const imageElement = document.getElementById('rotatingImage');
+    const images = [
+      "{% static 'images/community_image.jpg.png' %}",
+      "{% static 'images/seeker_profile.jpg' %}",
+      "{% static 'images/job_cartoon.avif' %}",
+      "{% static 'images/job_posted.jpg' %}"
+    ];
+    let index = 0;
+  
+    setInterval(() => {
+    index = (index + 1) % images.length;
+    imageElement.src = images[index];
+  }, 3000); // changes image every 3 seconds
+
+  </script>
+  
   {% endblock %}
 
 </body>

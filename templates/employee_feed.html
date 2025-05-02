@@ -84,6 +84,15 @@
     align-items: center;
     height: 80px;
   }
+  .no_application{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .n_txt{
+    margin-top: -40px;
+  }
 </style>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
@@ -148,7 +157,14 @@
                 {% endfor %}
               </ul>
               {% else %}
-              <p>No applications yet.</p>
+              <div class="no_application">
+                <div class="n_img">
+                  <img src="{% static 'images/Wavy_Ppl1.jpg' %}" height="420px" width="500px" alt="">
+                </div>
+                <div class="n_txt">
+                  <h5><strong>No applications yet.</strong></h5>
+                </div>
+              </div>
               {% endif %}
             </div>
           </div>

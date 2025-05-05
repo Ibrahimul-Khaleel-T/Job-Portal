@@ -290,7 +290,8 @@ def job_details(request,id):
 
 def select_edit_job_post(request):
     employee=Employee.objects.get(user_id=request.user)
-    jobs=Job.objects.filter(posted_by=employee)
+    current_date = timezone.now().date()
+    jobs = Job.objects.filter(application_deadline__gte=current_date,posted_by=employee)
     return render(request,'select_edit_job_post.html',{'jobs':jobs})
 
 

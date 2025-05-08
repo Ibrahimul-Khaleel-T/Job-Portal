@@ -105,7 +105,7 @@
       <h3>Welcome to your <br>professional community</h3>
       </div>
       <div class="image">
-          <img id="rotatingImage" src="{% static 'images/community_image.jpg.png' %}" height="350px" width="380px" alt="welcome">       
+          <img id="rotatingImage" src="{% static 'images/cat1.png' %}" height="410px" width="550px" alt="welcome">       
       </div>
     </div>
 
@@ -129,10 +129,11 @@
    <script>
     const imageElement = document.getElementById('rotatingImage');
     const images = [
-      "{% static 'images/community_image.jpg.png' %}",
+      "{% static 'images/cat1.png' %}",
       "{% static 'images/seeker_profile.jpg' %}",
       "{% static 'images/job_cartoon.avif' %}",
-      "{% static 'images/job_posted.jpg' %}"
+      "{% static 'images/job_posted.jpg' %}",
+      "{% static 'images/133.png' %}"
     ];
     let index = 0;
   
@@ -142,6 +143,8 @@
   }, 3000); // changes image every 3 seconds
 
   </script>
+
+
   
   {% endblock %}
 

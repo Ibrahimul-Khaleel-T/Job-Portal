@@ -116,7 +116,8 @@ def signin(request):
             else:
                 return HttpResponse("Unknown user")
         else:
-            return render(request,'signin.html',{'error':'Invalid username or password'})
+            messages.error(request, "Invalid username or password!")
+            return render(request,'signin.html')
     else:
         return render(request,'signin.html')
 

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$!9m4fymd6&-ru_b-eg&df*5)5a!-%_&03gah)774tjk+^kx%3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS =  ['jobportal-production-d727.up.railway.app', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -44,13 +44,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'job_portal.urls'
@@ -136,3 +136,4 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL='job_portal_app.CustomUser'
+CSRF_TRUSTED_ORIGINS = ['https://jobportal-production-d727.up.railway.app']
